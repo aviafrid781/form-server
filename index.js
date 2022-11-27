@@ -36,9 +36,8 @@ async function run() {
             const cursor = servicesCollection.find({});
             const services = await cursor.toArray();
             res.send(services);
-
         })
-        //kire vlo achosssss
+     
         //get oder Api
         app.get('/orders', async (req, res) => {
             const cursor = ordersCollection.find({});
@@ -55,7 +54,6 @@ async function run() {
 
         })
 
-
         //Get single API
         app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
@@ -63,17 +61,12 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const service = await servicesCollection.findOne(query);
             res.json(service);
-
-
         })
-
-
         //get Bikes Api
         app.get('/bikes', async (req, res) => {
             const cursor = bikeCollection.find({});
             const order = await cursor.toArray();
             res.send(order);
-
         })
 
         //get furnitures Api
@@ -81,7 +74,6 @@ async function run() {
             const cursor = furnitureCollection.find({});
             const order = await cursor.toArray();
             res.send(order);
-
         })
 
         //get cars Api
@@ -89,19 +81,12 @@ async function run() {
             const cursor = carsCollection.find({});
             const order = await cursor.toArray();
             res.send(order);
-
         })
-
-
-
-
-
         //POST API
         app.post('/services', async (req, res) => {
 
             const service = req.body;
             console.log('hit the post api', service);
-
             const result = await servicesCollection.insertOne(service);
             console.log(result);
             res.json(result);
@@ -110,10 +95,8 @@ async function run() {
 
         //order POST API
         app.post('/orders', async (req, res) => {
-
             const order = req.body;
             console.log('hit the post order api', order);
-
             const result = await ordersCollection.insertOne(order);;
             console.log(result);
             res.json(result);
@@ -124,56 +107,40 @@ async function run() {
         app.post('/bikes', async (req, res) => {
             const bike = req.body;
             console.log('hit the post order api', bike);
-
             const result = await bikeCollection.insertOne(bike);;
             console.log(result);
             res.json(result);
         });
-
-
         //car POST API
         app.post('/cars', async (req, res) => {
-
             const car = req.body;
             console.log('hit the post order api', car);
-
             const result = await carsCollection.insertOne(car);;
             console.log(result);
             res.json(result);
         });
 
-
         //furniture POST API
         app.post('/furnitures', async (req, res) => {
-
             const furniture = req.body;
             console.log('hit the post order api', furniture);
             const result = await furnitureCollection.insertOne(furniture);;
             console.log(result);
             res.json(result);
         });
-
-
-
         //delete API 
         app.delete('/orders/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await ordersCollection.deleteOne(query);
             res.json(result);
-
         });
-
-
     }
     finally {
         // await client.close();
     }
-
 }
 run().catch(console.dir);
-
-
 app.get('/', (req, res) => {
     res.send('running travel server');
 })
